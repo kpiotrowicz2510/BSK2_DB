@@ -19,6 +19,7 @@ class Controller extends BaseController
         if($user!=null) {
             $clearance = Clearance::where('id', $user->clearanceId)->first();
             View::share('clearanceName', $clearance->name);
+            View::share('clearance', $user->clearanceId);
             return $user->clearanceId;
         }
         abort(403);

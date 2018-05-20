@@ -61,6 +61,9 @@ class ReservationController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        if($this->getCurrentUserClearance($request) > 2){
+            abort(403);
+        }
         $reservation = Reservation::where('id', $id)->first();
         $this->getCurrentUserClearance($request);
         return view('editreservation', ['reservation'=>$reservation]);
@@ -75,7 +78,9 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation, $id)
     {
-
+        if($this->getCurrentUserClearance($request) > 2){
+            abort(403);
+        }
         $user = Reservation::where('id', $id)->first();
         if($user==null){
             $user = new Reservation();
@@ -105,8 +110,11 @@ class ReservationController extends Controller
      * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation, $id)
+    public function destroy(Request $request, $id)
     {
+        if($this->getCurrentUserClearance($request) > 1){
+            abort(403);
+        }
         $user = Reservation::where('id', $id)->first();
         if($user==null){
             abort(404);

@@ -43,6 +43,9 @@ class ApplicationUserController extends Controller
      */
     public function create(Request $request)
     {
+        if($this->getCurrentUserClearance($request) > 2){
+            abort(403);
+        }
         $this->getCurrentUserClearance($request);
         $user = new ApplicationUser();
         $user->id = 1000;
@@ -79,6 +82,9 @@ class ApplicationUserController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        if($this->getCurrentUserClearance($request) > 2){
+            abort(403);
+        }
         $user = ApplicationUser::where('id', $id)->first();
         $this->getCurrentUserClearance($request);
         return view('edituser', ['user'=>$user]);
@@ -93,6 +99,9 @@ class ApplicationUserController extends Controller
      */
     public function update(Request $request, ApplicationUser $applicationUser, $id)
     {
+        if($this->getCurrentUserClearance($request) > 2){
+            abort(403);
+        }
         $user = ApplicationUser::where('id', $id)->first();
         if($user==null){
             $user = new ApplicationUser();

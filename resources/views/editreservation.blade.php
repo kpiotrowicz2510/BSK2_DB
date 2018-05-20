@@ -13,9 +13,9 @@
         <option value="2" <? if($reservation->reservationStatus == 2){echo "selected";} ?>>CANCELED</option>
     </select><br>
     Clearance: <select name="clearanceId">
-        <option value="1" <? if($reservation->clearanceId == 1){echo "selected";} ?>>ADMIN</option>
-        <option value="2" <? if($reservation->clearanceId == 2){echo "selected";} ?>>MANAGER</option>
-        <option value="3" <? if($reservation->clearanceId == 3){echo "selected";} ?>>USER</option>
+        <? if($clearance <= 1){ ?><option value="1" <? if($reservation->clearanceId == 1){echo "selected";} ?>>ADMIN</option><? } ?>
+        <? if($clearance <= 2){ ?><option value="2" <? if($reservation->clearanceId == 2){echo "selected";} ?>>MANAGER</option><? } ?>
+        <? if($clearance <= 3){ ?><option value="3" <? if($reservation->clearanceId == 3){echo "selected";} ?>>USER</option><? } ?>
     </select><br>
     <input class="btn btn-danger" type="submit" value="SAVE">
 </form>
